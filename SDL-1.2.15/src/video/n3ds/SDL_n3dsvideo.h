@@ -28,6 +28,8 @@
 
 #include <3ds.h>
 
+/* Define this to solve build errors */
+typedef int GSPGPU_FramebufferFormats;
 
 /* Hidden "this" pointer for the video functions */
 #define _THIS	SDL_VideoDevice *this

@@ -544,7 +544,8 @@ static void drawBuffers(_THIS)
 		C3D_TexEnv* env = C3D_GetTexEnv(0);
 		C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, 0, 0);
 		
-		C3D_TexEnvOpRgb(env, C3D_Both, 0, 0, 0);
+		C3D_TexEnvOpRgb(env, 0, 0, 0);
+		C3D_TexEnvOpAlpha(env, 0, 0, 0);
 		C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
 
 		gspWaitForVBlank();
