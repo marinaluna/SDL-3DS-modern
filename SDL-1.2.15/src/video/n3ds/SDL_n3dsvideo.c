@@ -533,7 +533,7 @@ static void drawBuffers(_THIS)
 	
 		GSPGPU_FlushDataCache(this->hidden->buffer, this->hidden->w*this->hidden->h*this->hidden->byteperpixel);
 
-		C3D_SafeDisplayTransfer ((u32*)this->hidden->buffer, GX_BUFFER_DIM(this->hidden->w, this->hidden->h), (u32*)spritesheet_tex.data, GX_BUFFER_DIM(this->hidden->w, this->hidden->h), textureTranferFlags[this->hidden->mode]);
+		C3D_SyncDisplayTransfer ((u32*)this->hidden->buffer, GX_BUFFER_DIM(this->hidden->w, this->hidden->h), (u32*)spritesheet_tex.data, GX_BUFFER_DIM(this->hidden->w, this->hidden->h), textureTranferFlags[this->hidden->mode]);
 		gspWaitForPPF();
 
 		GSPGPU_FlushDataCache(spritesheet_tex.data, this->hidden->w*this->hidden->h*this->hidden->byteperpixel);
@@ -544,7 +544,7 @@ static void drawBuffers(_THIS)
 		C3D_TexEnv* env = C3D_GetTexEnv(0);
 		C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, 0, 0);
 		
-		C3D_TexEnvOp(env, C3D_Both, 0, 0, 0);
+		C3D_TexEnvOpRgb(env, C3D_Both, 0, 0, 0);
 		C3D_TexEnvFunc(env, C3D_Both, GPU_REPLACE);
 
 		gspWaitForVBlank();
@@ -704,7 +704,7 @@ static void sceneInit(GSPGPU_FramebufferFormats mode, bool scale) {
 		VideoSurface1 = C3D_RenderTargetCreate(240*2, 400*2, mode, GPU_RB_DEPTH24_STENCIL8);
 	else
 		VideoSurface1 = C3D_RenderTargetCreate(240, 400, mode, GPU_RB_DEPTH24_STENCIL8);
-	C3D_RenderTargetSetClear(VideoSurface1, C3D_CLEAR_ALL, clearcolors[mode], 0);
+	C3D_RenderTargetClear(VideoSurface1, C3D_CLEAR_ALL, clearcolors[mode], 0);
 	if(scale)	
 		C3D_RenderTargetSetOutput(VideoSurface1, GFX_TOP, GFX_LEFT, displayTranferFlags[mode] | GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_XY));
 	else
@@ -715,7 +715,7 @@ static void sceneInit(GSPGPU_FramebufferFormats mode, bool scale) {
 		VideoSurface2 = C3D_RenderTargetCreate(240*2, 320*2, mode, GPU_RB_DEPTH24_STENCIL8);
 	else
 		VideoSurface2 = C3D_RenderTargetCreate(240, 320, mode, GPU_RB_DEPTH24_STENCIL8);
-	C3D_RenderTargetSetClear(VideoSurface2, C3D_CLEAR_ALL, clearcolors[mode], 0);
+	C3D_RenderTargetClear(VideoSurface2, C3D_CLEAR_ALL, clearcolors[mode], 0);
 	if (scale)	
 		C3D_RenderTargetSetOutput(VideoSurface2, GFX_BOTTOM, GFX_LEFT, displayTranferFlags[mode] | GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_XY));
 	else

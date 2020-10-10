@@ -1,4 +1,7 @@
-# SDL-3DS
+# SDL-3DS-modern
+This is an updated version of nop90's SDL-3DS that makes projects linked with it work with modern citro3d,
+by removing calls to deprecated functions.
+
 SDL 1.2 for 3DS
 
    Simple DirectMedia Layer
